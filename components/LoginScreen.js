@@ -21,7 +21,12 @@ class Login extends Component{
   verifyLogin = async (navigation) => {
     await this.getData();
     if(this.state.accessGranted){
-      await this.setState({accessGranted: !this.state.accessGranted});
+      await this.setState({
+        accessGranted: !this.state.accessGranted,
+        errorMessage: '',
+        email: '',
+        password: ''
+      });
       await this.saveAccessDetails();
       await navigation.navigate('HomeNavigation');
     }
@@ -50,9 +55,9 @@ class Login extends Component{
             token: responseJson.token.toString(),
             userID: responseJson.id.toString(),
         });
-        this.setState({errorMessage: 'Invalid details provided'});
     })
     .catch((error) => {
+        this.setState({errorMessage: 'Invalid details provided'});
         console.log(error);
     });
   }
@@ -92,7 +97,7 @@ class Login extends Component{
             onPress={() => this.verifyLogin(navigation)}>
             <Text style={{padding: 5, fontSize: 25, color: 'beige'}}>LOGIN</Text>
           </TouchableOpacity>
-          <Text style={{color: 'red', fontSize: 20}}>{this.state.errorText}</Text>
+          <Text style={{color: 'red', fontSize: 20}}>{this.state.errorMessage}</Text>
           <View style={styles.container2}>
             <Text style={styles.text}>Don't have an account? Sign up now.</Text>
             <TouchableOpacity style={styles.touch} onPress={() => navigation.navigate('Signup')}>
