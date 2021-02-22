@@ -13,8 +13,7 @@ class MyReviews extends Component{
       token: '',
       locationID: '',
       reviewID: '',
-      userID: '',
-      exist: ''
+      userID: ''
     };
   }
 
@@ -55,7 +54,6 @@ class MyReviews extends Component{
     })
     .then((response) => response.json())
     .then((responseJson) => {
-        //console.log(responseJson);
         this.setState({
             isLoading: false,
             myReviews: responseJson
@@ -128,17 +126,6 @@ class MyReviews extends Component{
     });
   }
 
-  imageExists = async (image_url) => {
-
-    var http = new XMLHttpRequest();
-
-    http.open('HEAD', image_url, false);
-    http.send();
-
-    return http.status != 404;
-
-}
-
   render(){
 
     const navigation = this.props.navigation;
@@ -198,6 +185,7 @@ class MyReviews extends Component{
                             fullStarColor='darkred'
                           />
                           <Text style={styles.text}>Comment: {item.review.review_body}</Text>
+                          <Text style={styles.text}>Photo: {item.review.review_body}</Text>
                           <View>
                           <Image
                             source={{
