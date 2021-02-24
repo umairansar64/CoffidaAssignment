@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Alert, Text, View, Button, StyleSheet, TextInput, TouchableOpacity, ScrollView, ToastAndroid } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createStackNavigator } from '@react-navigation/stack';
+import { t, getLanguage } from './../locales';
 
 class Login extends Component{
 
@@ -16,6 +17,10 @@ class Login extends Component{
       token: '',
       errorMessage: ''
     }
+  }
+
+  componentDidMount(){
+    getLanguage();
   }
 
   verifyLogin = async (navigation) => {
@@ -57,7 +62,7 @@ class Login extends Component{
         });
     })
     .catch((error) => {
-        this.setState({errorMessage: 'Invalid details provided'});
+        this.setState({errorMessage: t('error_incorrect_details')});
         console.log(error);
     });
   }
@@ -75,33 +80,35 @@ class Login extends Component{
 
   render(){
 
+    getLanguage();
+
     const navigation = this.props.navigation;
 
     return(
         <ScrollView style={styles.container1}>
-          <Text style={styles.text}>Email:</Text>
+          <Text style={styles.text}>{t('email')}:</Text>
           <TextInput
             style={styles.input}
             placeholder="name@email.com"
             onChangeText={(email) => this.setState({email})}
             value={this.state.email}/>
-          <Text style={styles.text}>Password:</Text>
+          <Text style={styles.text}>{t('password')}:</Text>
           <TextInput
             style={styles.input}
-            placeholder="password"
+            placeholder={t('password')}
             secureTextEntry
             onChangeText={(password) => this.setState({password})}
             value={this.state.password}/>
           <TouchableOpacity
             style={styles.touch}
             onPress={() => this.verifyLogin(navigation)}>
-            <Text style={{padding: 5, fontSize: 25, color: 'beige'}}>LOGIN</Text>
+            <Text style={{padding: 5, fontSize: 25, color: 'beige'}}>{t('log_in')}</Text>
           </TouchableOpacity>
           <Text style={{color: 'red', fontSize: 20}}>{this.state.errorMessage}</Text>
           <View style={styles.container2}>
-            <Text style={styles.text}>Don't have an account? Sign up now.</Text>
+            <Text style={styles.text}>{t('sign_up_now')}</Text>
             <TouchableOpacity style={styles.touch} onPress={() => navigation.navigate('Signup')}>
-              <Text style={{padding: 5, fontSize: 25, color: 'beige'}}>Sign Up</Text>
+              <Text style={{padding: 5, fontSize: 25, color: 'beige'}}>{t('sign_up')}</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>

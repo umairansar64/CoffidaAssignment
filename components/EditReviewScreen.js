@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ToastAndroid, View, Text, ActivityIndicator, FlatList, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import StarRating from 'react-native-star-rating';
+import { t } from './../locales';
 
 class EditReview extends Component{
   constructor(props){
@@ -109,7 +110,7 @@ class EditReview extends Component{
       body: JSON.stringify(sendData)
     })
     .then((response) => {
-      ToastAndroid.show("Changes Saved!", ToastAndroid.SHORT);
+      ToastAndroid.show(t('changes_saved'), ToastAndroid.SHORT);
     })
     .catch((error) => {
         console.log(error);
@@ -133,9 +134,9 @@ class EditReview extends Component{
       return (
 
           <View style={styles.container}>
-            <Text style={{color: 'darkred', fontSize: 20, padding: 5, fontWeight: 'bold'}}>Edit Review</Text>
+            <Text style={{color: 'darkred', fontSize: 20, padding: 5, fontWeight: 'bold'}}>{t('edit_review')}</Text>
             <View style={styles.subContainer}>
-              <Text style={{fontSize: 20, color: 'darkred'}}>Overall Rating</Text>
+              <Text style={{fontSize: 20, color: 'darkred'}}>{t('overall_rating')}</Text>
               <StarRating
                 disabled={false}
                 maxStars={5}
@@ -143,7 +144,7 @@ class EditReview extends Component{
                 rating={this.state.overallRating}
                 selectedStar={(rating) => this.setState({overallRating: rating})}
               />
-              <Text style={{fontSize: 20, color: 'darkred'}}>Price Rating</Text>
+              <Text style={{fontSize: 20, color: 'darkred'}}>{t('price_rating')}</Text>
               <StarRating
                 disabled={false}
                 maxStars={5}
@@ -151,7 +152,7 @@ class EditReview extends Component{
                 rating={this.state.priceRating}
                 selectedStar={(rating) => this.setState({priceRating: rating})}
               />
-              <Text style={{fontSize: 20, color: 'darkred'}}>Quality Rating</Text>
+              <Text style={{fontSize: 20, color: 'darkred'}}>{t('quality_rating')}</Text>
               <StarRating
                 disabled={false}
                 maxStars={5}
@@ -159,7 +160,7 @@ class EditReview extends Component{
                 rating={this.state.qualityRating}
                 selectedStar={(rating) => this.setState({qualityRating: rating})}
               />
-              <Text style={{fontSize: 20, color: 'darkred'}}>Cleanliness Rating</Text>
+              <Text style={{fontSize: 20, color: 'darkred'}}>{t('cleanliness_rating')}</Text>
               <StarRating
                 disabled={false}
                 maxStars={5}
@@ -167,14 +168,14 @@ class EditReview extends Component{
                 rating={this.state.cleanlinessRating}
                 selectedStar={(rating) => this.setState({cleanlinessRating: rating})}
               />
-              <Text style={{fontSize: 20, color: 'darkred'}}>Comment</Text>
+              <Text style={{fontSize: 20, color: 'darkred'}}>{t('comment')}</Text>
               <TextInput
-                placeholder="e.g. Coffee was nice"
+                placeholder={"e.g. "+t('example_coffee_was_nice')}
                 style={{backgroundColor: 'white'}}
                 onChangeText={(reviewBody) => this.setState({reviewBody})}
                 value={this.state.reviewBody}/>
               <TouchableOpacity style={styles.touch} onPress={() => this.saveChanges()}>
-                <Text style={{fontSize: 20, color: 'beige'}}>Save</Text>
+                <Text style={{fontSize: 20, color: 'beige'}}>{t('save')}</Text>
               </TouchableOpacity>
             </View>
           </View>

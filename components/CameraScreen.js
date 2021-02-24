@@ -3,6 +3,7 @@ import { View, Text, ActivityIndicator, StyleSheet, Button, Alert } from 'react-
 import { RNCamera } from 'react-native-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { t } from './../locales';
 
 class Camera extends Component{
   constructor(props){
@@ -62,7 +63,7 @@ class Camera extends Component{
         body: data
       })
       .then((response) => {
-        Alert.alert("Picture Added!");
+        Alert.alert(t('picture_added'));
       })
       .catch((error) => {
         console.error(error);

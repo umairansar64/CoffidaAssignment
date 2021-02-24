@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import {t, getLanguage} from './locales';
 
 import Login from './components/LoginScreen';
 import Account from './components/AccountScreen';
@@ -19,6 +20,11 @@ import Camera from './components/CameraScreen';
 const Stack = createStackNavigator();
 
 class App extends Component {
+
+  componentDidMount(){
+    getLanguage();
+  }
+
   render(){
     return (
       <NavigationContainer independent={true}>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ToastAndroid, View, Text, ActivityIndicator, FlatList, Button, Alert, TextInput, StyleSheet, TouchableOpacity,Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import StarRating from 'react-native-star-rating';
+import { t } from './../locales';
 
 class MyReviews extends Component{
   constructor(props){
@@ -73,6 +74,7 @@ class MyReviews extends Component{
         this.setState({
             isLoading: true
         })
+        ToastAndroid.show(t('review_deleted'), ToastAndroid.SHORT);
         this.getData();
     })
     .catch((error) => {
@@ -118,7 +120,7 @@ class MyReviews extends Component{
       }
     })
     .then((response) => {
-      Alert.alert("Picture Deleted!");
+      Alert.alert(t('picture_deleted'));
       this.getData();
     })
     .catch((error) => {
@@ -147,8 +149,8 @@ class MyReviews extends Component{
                 renderItem={({item}) => (
                     <TouchableOpacity style={styles.touch}>
                       <View style={{alignItems: 'flex-start'}}>
-                        <Text style={styles.text}>Location: {item.location.location_name}</Text>
-                          <Text style={styles.text}>Overall Rating: </Text>
+                        <Text style={styles.text}>{t('location')}: {item.location.location_name}</Text>
+                          <Text style={styles.text}>{t('overall_rating')}: </Text>
                           <StarRating
                             disabled={false}
                             halfStarEnabled={true}
@@ -157,7 +159,7 @@ class MyReviews extends Component{
                             starSize={25}
                             fullStarColor='darkred'
                           />
-                          <Text style={styles.text}>Price Rating: </Text>
+                          <Text style={styles.text}>{t('price_rating')}: </Text>
                           <StarRating
                             disabled={false}
                             halfStarEnabled={true}
@@ -166,7 +168,7 @@ class MyReviews extends Component{
                             starSize={25}
                             fullStarColor='darkred'
                           />
-                          <Text style={styles.text}>Quality Rating: </Text>
+                          <Text style={styles.text}>{t('quality_rating')}: </Text>
                           <StarRating
                             disabled={false}
                             halfStarEnabled={true}
@@ -175,7 +177,7 @@ class MyReviews extends Component{
                             starSize={25}
                             fullStarColor='darkred'
                           />
-                          <Text style={styles.text}>Cleanliness Rating: </Text>
+                          <Text style={styles.text}>{t('cleanliness_rating')}: </Text>
                           <StarRating
                             disabled={false}
                             halfStarEnabled={true}
@@ -184,8 +186,8 @@ class MyReviews extends Component{
                             starSize={25}
                             fullStarColor='darkred'
                           />
-                          <Text style={styles.text}>Comment: {item.review.review_body}</Text>
-                          <Text style={styles.text}>Photo: {item.review.review_body}</Text>
+                          <Text style={styles.text}>{t('comment')}: {item.review.review_body}</Text>
+                          <Text style={styles.text}>{t('photo')}: </Text>
                           <View>
                           <Image
                             source={{
@@ -201,18 +203,20 @@ class MyReviews extends Component{
                           </View>
                           <View style={{flexDirection: 'row'}}>
                           <TouchableOpacity style={styles.button} onPress={() => this.openReview(navigation, item.review.review_id, item.location.location_id)}>
-                            <Text style={{fontSize: 20, color: 'beige'}} >Edit Review</Text>
+                            <Text style={{fontSize: 20, color: 'beige'}} >{t('edit_review')}</Text>
                           </TouchableOpacity>
                           <TouchableOpacity style={styles.button} onPress={() => this.removeReview(item.review.review_id, item.location.location_id)}>
-                            <Text style={{fontSize: 20, color: 'beige'}} >Remove</Text>
-                          </TouchableOpacity>
-                          <TouchableOpacity style={styles.button} onPress={() => this.addPhoto(navigation, item.review.review_id, item.location.location_id)}>
-                            <Text style={{fontSize: 20, color: 'beige'}} >Add Photo</Text>
+                            <Text style={{fontSize: 20, color: 'beige'}} >{t('delete_review')}</Text>
                           </TouchableOpacity>
                           </View>
-                          <TouchableOpacity style={styles.button} onPress={() => this.deletePhoto(item.review.review_id, item.location.location_id)}>
-                            <Text style={{fontSize: 20, color: 'beige'}} >Delete Photo</Text>
+                          <View style={{flexDirection: 'row'}}>
+                          <TouchableOpacity style={styles.button} onPress={() => this.addPhoto(navigation, item.review.review_id, item.location.location_id)}>
+                            <Text style={{fontSize: 20, color: 'beige'}} >{t('add_photo')}</Text>
                           </TouchableOpacity>
+                          <TouchableOpacity style={styles.button} onPress={() => this.deletePhoto(item.review.review_id, item.location.location_id)}>
+                            <Text style={{fontSize: 20, color: 'beige'}} >{t('delete_photo')}</Text>
+                          </TouchableOpacity>
+                          </View>
                       </View>
                     </TouchableOpacity>
                 )}

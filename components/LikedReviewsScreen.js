@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ToastAndroid, View, Text, ActivityIndicator, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import StarRating from 'react-native-star-rating';
+import { t } from './../locales';
 
 class LikedReviews extends Component{
   constructor(props){
@@ -70,7 +71,7 @@ class LikedReviews extends Component{
         this.setState({
             isLoading: true
         })
-        ToastAndroid.show("Like Removed", ToastAndroid.SHORT);
+        ToastAndroid.show(t('removed_from_liked'), ToastAndroid.SHORT);
         this.getData();
     })
     .catch((error) => {
@@ -99,8 +100,8 @@ class LikedReviews extends Component{
                 renderItem={({item}) => (
                     <TouchableOpacity style={styles.touch}>
                       <View style={{alignItems: 'flex-start'}}>
-                        <Text style={styles.text}>Location: {item.location.location_name}</Text>
-                          <Text style={styles.text}>Overall Rating: </Text>
+                        <Text style={styles.text}>{t('location')}: {item.location.location_name}</Text>
+                          <Text style={styles.text}>{t('overall_rating')}: </Text>
                           <StarRating
                             disabled={false}
                             halfStarEnabled={true}
@@ -109,7 +110,7 @@ class LikedReviews extends Component{
                             starSize={25}
                             fullStarColor='darkred'
                           />
-                          <Text style={styles.text}>Price Rating: </Text>
+                          <Text style={styles.text}>{t('price_rating')}: </Text>
                           <StarRating
                             disabled={false}
                             halfStarEnabled={true}
@@ -118,7 +119,7 @@ class LikedReviews extends Component{
                             starSize={25}
                             fullStarColor='darkred'
                           />
-                          <Text style={styles.text}>Quality Rating: </Text>
+                          <Text style={styles.text}>{t('quality_rating')}: </Text>
                           <StarRating
                             disabled={false}
                             halfStarEnabled={true}
@@ -127,7 +128,7 @@ class LikedReviews extends Component{
                             starSize={25}
                             fullStarColor='darkred'
                           />
-                          <Text style={styles.text}>Cleanliness Rating: </Text>
+                          <Text style={styles.text}>{t('cleanliness_rating')}: </Text>
                           <StarRating
                             disabled={false}
                             halfStarEnabled={true}
@@ -136,9 +137,9 @@ class LikedReviews extends Component{
                             starSize={25}
                             fullStarColor='darkred'
                           />
-                          <Text style={styles.text}>Comment: {item.review.review_body}</Text>
+                          <Text style={styles.text}>{t('comment')}: {item.review.review_body}</Text>
                           <TouchableOpacity style={styles.button} onPress={() => this.removeLike(item.review.review_id, item.location.location_id)}>
-                            <Text style={{fontSize: 20, color: 'beige'}} >Remove</Text>
+                            <Text style={{fontSize: 20, color: 'beige'}} >{t('remove_from_liked')}</Text>
                           </TouchableOpacity>
                       </View>
                     </TouchableOpacity>

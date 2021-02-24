@@ -3,6 +3,7 @@ import { View, Text, ActivityIndicator, StyleSheet, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import StarRating from 'react-native-star-rating';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { t } from './../locales';
 
 class Review extends Component{
   constructor(props){
@@ -24,7 +25,7 @@ class Review extends Component{
       reviewID: '',
       reviewBody: '',
       hasLiked: false,
-      likeStatus: 'Not Liked',
+      likeStatus: t('not_liked'),
       photoPath: ''
     };
   }
@@ -73,7 +74,7 @@ class Review extends Component{
     for(var i=0; i<this.state.userInfo.liked_reviews.length;i++){
       if(this.state.userInfo.liked_reviews[i].review.review_id == this.state.reviewID){
         this.setState({
-          likeStatus: 'Liked',
+          likeStatus: t('liked'),
           hasLiked: true
         });
       }
@@ -125,7 +126,7 @@ class Review extends Component{
     })
     .then((response) => {
         this.setState({
-            likeStatus: 'Not Liked'
+            likeStatus: t('not_liked')
         })
     })
     .catch((error) => {
@@ -140,7 +141,7 @@ class Review extends Component{
     })
     .then((response) => {
         this.setState({
-            likeStatus: 'Liked'
+            likeStatus: t('liked')
         })
     })
     .catch((error) => {
@@ -207,7 +208,7 @@ class Review extends Component{
       return (
           <View style={styles.container}>
             <View style={styles.subContainer}>
-            <Text style={{fontSize: 20, color: 'darkred'}}>Overall Rrating: {this.state.overallRrating}</Text>
+            <Text style={{fontSize: 20, color: 'darkred'}}>{t('overall_rating')}: {this.state.overallRrating}</Text>
             <StarRating
               disabled={false}
               halfStarEnabled={true}
@@ -216,7 +217,7 @@ class Review extends Component{
               starSize={25}
               fullStarColor='darkred'
             />
-            <Text style={{fontSize: 20, color: 'darkred'}}>Quality Rrating: {this.state.qualityRrating}</Text>
+            <Text style={{fontSize: 20, color: 'darkred'}}>{t('quality_rating')}: {this.state.qualityRrating}</Text>
             <StarRating
               disabled={false}
               halfStarEnabled={true}
@@ -225,7 +226,7 @@ class Review extends Component{
               starSize={25}
               fullStarColor='darkred'
             />
-            <Text style={{fontSize: 20, color: 'darkred'}}>Price Rrating: {this.state.priceRrating}</Text>
+            <Text style={{fontSize: 20, color: 'darkred'}}>{t('price_rating')}: {this.state.priceRrating}</Text>
             <StarRating
               disabled={false}
               halfStarEnabled={true}
@@ -234,7 +235,7 @@ class Review extends Component{
               starSize={25}
               fullStarColor='darkred'
             />
-            <Text style={{fontSize: 20, color: 'darkred'}}>Cleanliness Rrating: {this.state.cleanlinessRrating}</Text>
+            <Text style={{fontSize: 20, color: 'darkred'}}>{t('cleanliness_rating')}: {this.state.cleanlinessRrating}</Text>
             <StarRating
               disabled={false}
               halfStarEnabled={true}
@@ -243,8 +244,8 @@ class Review extends Component{
               starSize={25}
               fullStarColor='darkred'
             />
-            <Text style={{fontSize: 20, color: 'darkred'}}>Comment: {this.state.reviewBody}</Text>
-            <Text style={{fontSize: 20, color: 'darkred'}}>Likes: {this.state.numOfLikes}</Text>
+            <Text style={{fontSize: 20, color: 'darkred'}}>{t('comment')}: {this.state.reviewBody}</Text>
+            <Text style={{fontSize: 20, color: 'darkred'}}>{t('likes')}: {this.state.numOfLikes}</Text>
             <Icon name={this.getThumbState()} style={styles.icon} onPress={() => this.likeUnlikeReview()}>
               <Text style={{fontSize: 20}}>  {this.state.likeStatus}</Text>
             </Icon>

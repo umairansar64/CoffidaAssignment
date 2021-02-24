@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { t } from './../locales';
 
 import Home from './HomeScreen';
 import Account from './AccountScreen';
@@ -15,9 +16,9 @@ class HomeNavigation extends Component{
           screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
-              if(route.name === 'Home') {
+              if(route.name === t('home')) {
                 iconName = focused ? 'home' : 'home';
-              } else if(route.name === 'Account') {
+              } else if(route.name === t('account')) {
                 iconName = focused ? 'id-card' : 'id-card-o';
               }
               return <Icon name={iconName} size={35} color={color}/>;
@@ -29,8 +30,8 @@ class HomeNavigation extends Component{
             style: { position: 'absolute', fontWeight: 5, backgroundColor: 'white' }
           }}
       >
-      <Tab.Screen name="Home" component={Home}/>
-      <Tab.Screen name="Account" component={Account}/>
+      <Tab.Screen name={t('home')} component={Home}/>
+      <Tab.Screen name={t('account')} component={Account}/>
       </Tab.Navigator>
     );
   }

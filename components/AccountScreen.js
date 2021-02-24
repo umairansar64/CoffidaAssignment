@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, TextInput, ScrollView, ToastAndroid, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { t } from './../locales';
 
 class Account extends Component{
 
@@ -104,7 +104,7 @@ class Account extends Component{
     }
 
     if((this.state.password !== this.state.confirmPassword) || allBlank){
-      this.setState({errorMessage: 'Please fill in all the details correctly!'});
+      this.setState({errorMessage: t('fill_details_correctly')});
 
     } else {
       return fetch('http://10.0.2.2:3333/api/1.0.0/user/'+this.state.userID.toString(), {
@@ -114,7 +114,7 @@ class Account extends Component{
         body: JSON.stringify(sendData)
       })
       .then((response) => {
-        ToastAndroid.show("Details Updated Successfully!", ToastAndroid.SHORT);
+        ToastAndroid.show(t('details_updated'), ToastAndroid.SHORT);
         this.getData();
         this.setState({
           editMode: false,
@@ -145,46 +145,46 @@ class Account extends Component{
 
       return(
         <ScrollView style={styles.container}>
-          <Text style={styles.instruction}>Fill the details you want to change!</Text>
-          <Text style={styles.heading}>First Name:</Text>
+          <Text style={styles.instruction}>{t('fill_the_details')}</Text>
+          <Text style={styles.heading}>{t('first_name')}:</Text>
           <TextInput
             style={styles.input}
             placeholder="Will"
             onChangeText={(editFirstName) => this.setState({editFirstName})}
             value={this.state.editFirstName}/>
-            <Text style={styles.heading}>Last Name</Text>
+            <Text style={styles.heading}>{t('last_name')}:</Text>
             <TextInput
               style={styles.input}
               placeholder="Smith"
               onChangeText={(editLastName) => this.setState({editLastName})}
               value={this.state.editLastName}/>
-            <Text style={styles.heading}>Email</Text>
+            <Text style={styles.heading}>{t('email')}:</Text>
             <TextInput
               style={styles.input}
               placeholder="name@email.com"
               onChangeText={(editEmail) => this.setState({editEmail})}
               value={this.state.editEmail}/>
-            <Text style={styles.heading}>Password</Text>
+            <Text style={styles.heading}>{t('password')}:</Text>
             <TextInput
               style={styles.input}
-              placeholder="Password"
+              placeholder={t('password')}
               secureTextEntry
               onChangeText={(password) => this.setState({password})}
               value={this.state.password}/>
-            <Text style={styles.heading}>Confirm Password</Text>
+            <Text style={styles.heading}>{t('confirm_password')}:</Text>
             <TextInput
               style={styles.input}
-              placeholder="Confirm Password"
+              placeholder={t('confirm_password')}
               secureTextEntry
               onChangeText={(confirmPassword) => this.setState({confirmPassword})}
               value={this.state.confirmPassword}/>
           <TouchableOpacity style={styles.touch}>
-            <Text style={{padding: 5, fontSize: 22, color: 'beige'}} onPress={() => this.saveEditedInfo()}>Save</Text>
+            <Text style={{padding: 5, fontSize: 22, color: 'beige'}} onPress={() => this.saveEditedInfo()}>{t('save')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.logoutButton} onPress={() => this.setState({editMode: false})}>
-            <Text style={{padding: 5, fontSize: 22, color: 'red', fontWeight: 'bold'}} >Cancel</Text>
+            <Text style={{padding: 5, fontSize: 22, color: 'red', fontWeight: 'bold'}}>{t('cancel')}</Text>
           </TouchableOpacity>
-          <Text style={{color: 'red'}}>{this.state.errorMessage}</Text>
+          <Text style={{color: 'red', fontSize: 20}}>{this.state.errorMessage}</Text>
         </ScrollView>
       );
     }
@@ -192,30 +192,30 @@ class Account extends Component{
       return(
         <View style={styles.container}>
           <View style={{backgroundColor: 'beige', padding: 10}}>
-          <Text style={styles.text}>First Name:</Text>
+          <Text style={styles.text}>{t('first_name')}:</Text>
           <Text style={styles.text}>{this.state.userDetails.first_name}</Text>
           <Text></Text>
-          <Text style={styles.text}>Last Name:</Text>
+          <Text style={styles.text}>{t('last_name')}:</Text>
           <Text style={styles.text}>{this.state.userDetails.last_name}</Text>
           <Text></Text>
-          <Text style={styles.text}>Email:</Text>
+          <Text style={styles.text}>{t('email')}:</Text>
           <Text style={styles.text}>{this.state.userDetails.email}</Text>
           </View>
           <View style = {{marginTop: 20}}>
           <TouchableOpacity style={styles.touch}>
-            <Text style={{padding: 5, fontSize: 22, color: 'beige'}} onPress={() => this.setState({editMode: true})}>Edit Info</Text>
+            <Text style={{padding: 5, fontSize: 22, color: 'beige'}} onPress={() => this.setState({editMode: true})}>{t('edit_info')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.touch}>
-            <Text style={{padding: 5, fontSize: 22, color: 'beige'}} onPress={() => navigation.navigate('MyReviews')}>My Reviews</Text>
+            <Text style={{padding: 5, fontSize: 22, color: 'beige'}} onPress={() => navigation.navigate('MyReviews')}>{t('my_reviews')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.touch}>
-            <Text style={{padding: 5, fontSize: 22, color: 'beige'}} onPress={() => navigation.navigate('LikedReviews')}>Liked Reviews</Text>
+            <Text style={{padding: 5, fontSize: 22, color: 'beige'}} onPress={() => navigation.navigate('LikedReviews')}>{t('liked_reviews')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.touch}>
-            <Text style={{padding: 5, fontSize: 22, color: 'beige'}} onPress={() => navigation.navigate('FavoriteLocations')}>Favoritle Locations</Text>
+            <Text style={{padding: 5, fontSize: 22, color: 'beige'}} onPress={() => navigation.navigate('FavoriteLocations')}>{t('favourite_locations')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.logoutButton} onPress={() => this.processLogout(navigation)}>
-            <Text style={{padding: 5, fontSize: 22, color: 'red', fontWeight: 'bold'}} >Log Out</Text>
+            <Text style={{padding: 5, fontSize: 22, color: 'red', fontWeight: 'bold'}} >{t('logout')}</Text>
           </TouchableOpacity>
           </View>
         </View>
@@ -273,6 +273,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 5,
     marginBottom: 5
+  },
+  heading:{
+    fontSize: 20,
+    color: 'darkred'
   }
 });
 

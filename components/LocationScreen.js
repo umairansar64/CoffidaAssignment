@@ -3,6 +3,7 @@ import { ToastAndroid, View, Text, ActivityIndicator, FlatList, TextInput, Style
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import StarRating from 'react-native-star-rating';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { t } from './../locales';
 
 class Location extends Component{
   constructor(props){
@@ -18,12 +19,14 @@ class Location extends Component{
       userID: '',
       userInfo: [],
       showAddReview: false,
-      reviewButtonText: 'Add Review',
+      reviewButtonText: t('add_review'),
       overallRating: 0,
       priceRating: 0,
       qualityRating: 0,
       cleanlinessRating: 0,
-      commentBody: ''
+      commentBody: '',
+      forbiddenWords: ["cake", "cakes", "pastry", "pastries", "tea"],
+      errorMessage: ''
     };
   }
 
@@ -162,15 +165,33 @@ class Location extends Component{
   addReviewPressed(){
     this.setState({showAddReview: !this.state.showAddReview})
     if(this.state.showAddReview){
-      this.setState({reviewButtonText: 'Add Review'})
+      this.setState({reviewButtonText: t('add_review')})
     }else {
-      this.setState({reviewButtonText: 'Cancel'})
+      this.setState({reviewButtonText: t('cancel')})
+    }
+  }
+
+  ValidateAndSaveReview(){
+
+    let commentValid = true;
+    let thisComment = this.state.commentBody.toLowerCase();
+
+    for(var i=0; i<this.state.forbiddenWords.length;i++){
+      if(thisComment.includes(this.state.forbiddenWords[i])){
+        commentValid = false;
+        this.setState({errorMessage: t('consider_coffee_reviews')})
+      }
+    }
+
+    if(commentValid){
+      this.setState({errorMessage: ''})
+      this.saveReview();
     }
   }
 
   saveReview(){
 
-    this.setState({reviewButtonText: 'Add Review'});
+    this.setState({reviewButtonText: t('add_review')});
 
     let sendData = {};
 
@@ -187,7 +208,7 @@ class Location extends Component{
       body: JSON.stringify(sendData)
     })
     .then((response) => {
-      ToastAndroid.show("Review Added!", ToastAndroid.SHORT);
+      ToastAndroid.show(t('review_added'), ToastAndroid.SHORT);
       this.getData();
       this.setState({showAddReview: false});
     })
@@ -214,7 +235,7 @@ class Location extends Component{
           <View style={styles.container}>
             <View style={styles.subContainer}>
             <Text style={styles.heading}>{this.state.locationData.location_name} ({this.state.locationData.location_town})</Text>
-              <Text style={styles.text}>Average overall rating:</Text>
+              <Text style={styles.text}>{t('average_overall_rating')}:</Text>
               <StarRating
                 disabled={false}
                 halfStarEnabled={true}
@@ -223,7 +244,7 @@ class Location extends Component{
                 starSize={20}
                 fullStarColor='darkred'
               />
-              <Text style={styles.text}>Average price rating:</Text>
+              <Text style={styles.text}>{t('average_price_rating')}:</Text>
               <StarRating
                 disabled={false}
                 halfStarEnabled={true}
@@ -232,7 +253,7 @@ class Location extends Component{
                 starSize={20}
                 fullStarColor='darkred'
               />
-              <Text style={styles.text}>Average quality rating:</Text>
+              <Text style={styles.text}>{t('average_quality_rating')}:</Text>
               <StarRating
                 disabled={false}
                 halfStarEnabled={true}
@@ -241,7 +262,7 @@ class Location extends Component{
                 starSize={20}
                 fullStarColor='darkred'
               />
-              <Text style={styles.text}>Average cleanliness rating:</Text>
+              <Text style={styles.text}>{t('average_cleanliness_rating')}:</Text>
               <StarRating
                 disabled={false}
                 halfStarEnabled={true}
@@ -261,7 +282,7 @@ class Location extends Component{
             </View>
             { this.state.showAddReview &&
               <View style={{alignItems: 'flex-start', backgroundColor: 'beige', padding: 10, marginTop: 10, borderRadius: 10}}>
-                <Text>Overall Rating</Text>
+                <Text>{t('overall_rating')}:</Text>
                 <StarRating
                   disabled={false}
                   maxStars={5}
@@ -269,7 +290,7 @@ class Location extends Component{
                   starSize={25}
                   selectedStar={(rating) => this.setState({overallRating: rating})}
                 />
-                <Text>Price Rating</Text>
+                <Text>{t('price_rating')}:</Text>
                 <StarRating
                   disabled={false}
                   maxStars={5}
@@ -277,7 +298,7 @@ class Location extends Component{
                   starSize={25}
                   selectedStar={(rating) => this.setState({priceRating: rating})}
                 />
-                <Text>Quality Rating</Text>
+                <Text>{t('quality_rating')}:</Text>
                 <StarRating
                   disabled={false}
                   maxStars={5}
@@ -285,7 +306,7 @@ class Location extends Component{
                   starSize={25}
                   selectedStar={(rating) => this.setState({qualityRating: rating})}
                 />
-                <Text>Cleanliness Rating</Text>
+                <Text>{t('cleanliness_rating')}:</Text>
                 <StarRating
                   disabled={false}
                   maxStars={5}
@@ -293,15 +314,16 @@ class Location extends Component{
                   starSize={25}
                   selectedStar={(rating) => this.setState({cleanlinessRating: rating})}
                 />
-                <Text>Comment</Text>
+                <Text>{t('comment')}:</Text>
                 <TextInput
                   style={{backgroundColor: 'white'}}
-                  placeholder="e.g. Coffee was nice"
+                  placeholder={"e.g. "+t('example_coffee_was_nice')}
                   onChangeText={(commentBody) => this.setState({commentBody})}
                   value={this.state.commentBody}/>
-                <TouchableOpacity style={styles.touch} onPress={() => this.saveReview()}>
-                  <Text style={{color: 'beige', fontSize: 20}}>Save</Text>
+                <TouchableOpacity style={styles.touch} onPress={() => this.ValidateAndSaveReview()}>
+                  <Text style={{color: 'beige', fontSize: 20}}>{t('save')}</Text>
                 </TouchableOpacity>
+                <Text style={{color: 'red'}}>{this.state.errorMessage}</Text>
               </View>
             }
             <FlatList
@@ -310,7 +332,7 @@ class Location extends Component{
               renderItem={({item}) => (
               <TouchableOpacity onPress={() => this.openReview(navigation, item.review_id)}>
                 <View style = {styles.subContainer}>
-                  <Text style={styles.text}>Overall Rating: {item.overall_rating}</Text>
+                  <Text style={styles.text}>{t('overall_rating')}: {item.overall_rating}</Text>
                   <StarRating
                     disabled={false}
                     halfStarEnabled={true}
@@ -319,9 +341,9 @@ class Location extends Component{
                     starSize={20}
                     fullStarColor='darkred'
                   />
-                  <Text style={styles.text}>Comment: {item.review_body}</Text>
-                  <Text style={styles.text}>Likes: {item.likes}</Text>
-                  <Text style={{borderColor: 'darkred', borderWidth: 1}}>"Tap for details"</Text>
+                  <Text style={styles.text}>{t('comment')}: {item.review_body}</Text>
+                  <Text style={styles.text}>{t('likes')}: {item.likes}</Text>
+                  <Text style={{borderColor: 'darkred', borderWidth: 1}}>{t('tap_for_details')}:</Text>
                 </View>
               </TouchableOpacity>
               )}

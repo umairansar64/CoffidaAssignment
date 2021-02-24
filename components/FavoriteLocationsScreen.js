@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ToastAndroid, View, Text, ActivityIndicator, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import StarRating from 'react-native-star-rating';
+import { t } from './../locales';
 
 class FavoriteLocations extends Component{
   constructor(props){
@@ -67,7 +68,7 @@ class FavoriteLocations extends Component{
       headers: {'X-Authorization': this.state.token}
     })
     .then((response) => {
-        ToastAndroid.show("Location Removed from Favorites", ToastAndroid.SHORT);
+        ToastAndroid.show(t('removed_from_favorites'), ToastAndroid.SHORT);
         this.setState({isLoading: true})
         this.getData();
     })
@@ -97,9 +98,9 @@ class FavoriteLocations extends Component{
                 renderItem={({item}) => (
                     <TouchableOpacity style={styles.touch}>
                       <View style={{alignItems: 'flex-start'}}>
-                        <Text style={styles.text}>Location Name: {item.location_name}</Text>
-                        <Text style={styles.text}>Location Town: {item.location_town}</Text>
-                          <Text style={styles.text}>Average Overall Rating: </Text>
+                        <Text style={styles.text}>{t('location_name')}: {item.location_name}</Text>
+                        <Text style={styles.text}>{t('location_town')}: {item.location_town}</Text>
+                          <Text style={styles.text}>{t('average_overall_rating')}:</Text>
                           <StarRating
                             disabled={false}
                             halfStarEnabled={true}
@@ -108,7 +109,7 @@ class FavoriteLocations extends Component{
                             starSize={25}
                             fullStarColor='darkred'
                           />
-                          <Text style={styles.text}>Average Price Rating: </Text>
+                          <Text style={styles.text}>{t('average_price_rating')}:</Text>
                           <StarRating
                             disabled={false}
                             halfStarEnabled={true}
@@ -117,7 +118,7 @@ class FavoriteLocations extends Component{
                             starSize={25}
                             fullStarColor='darkred'
                           />
-                          <Text style={styles.text}>Average Quality Rating: </Text>
+                          <Text style={styles.text}>{t('average_quality_rating')}:</Text>
                           <StarRating
                             disabled={false}
                             halfStarEnabled={true}
@@ -126,7 +127,7 @@ class FavoriteLocations extends Component{
                             starSize={25}
                             fullStarColor='darkred'
                           />
-                          <Text style={styles.text}>Average Cleanliness Rating: </Text>
+                          <Text style={styles.text}>{t('average_cleanliness_rating')}:</Text>
                           <StarRating
                             disabled={false}
                             halfStarEnabled={true}
@@ -136,7 +137,7 @@ class FavoriteLocations extends Component{
                             fullStarColor='darkred'
                           />
                           <TouchableOpacity style={styles.button} onPress={() => this.unfavourite(item.location_id)}>
-                            <Text style={{fontSize: 20, color: 'beige'}} >Remove</Text>
+                            <Text style={{fontSize: 20, color: 'beige'}} >{t('remove_from_favorites')}</Text>
                           </TouchableOpacity>
                       </View>
                     </TouchableOpacity>

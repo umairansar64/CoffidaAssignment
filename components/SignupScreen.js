@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Alert, Text, View, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { t } from './../locales';
 
 class Signup extends Component{
 
@@ -45,7 +46,7 @@ class Signup extends Component{
       body: JSON.stringify(sendData)
     })
     .then((response) => {
-      Alert.alert("Sign Up Successfull");
+      Alert.alert(t('sign_up_successful'));
       navigation.navigate('Login');
     })
     .catch((error) => {
@@ -60,7 +61,7 @@ class Signup extends Component{
     return(
         <ScrollView style={styles.container1}>
 
-          <Text style={styles.text}>First Name *</Text>
+          <Text style={styles.text}>{t('first_name')} *</Text>
 
           <TextInput
             style={styles.input}
@@ -68,7 +69,7 @@ class Signup extends Component{
             onChangeText={(firstName) => this.setState({firstName})}
             value={this.state.firstName}/>
 
-          <Text style={styles.text}>Last Name *</Text>
+          <Text style={styles.text}>{t('last_name')} *</Text>
 
           <TextInput
             style={styles.input}
@@ -76,7 +77,7 @@ class Signup extends Component{
             onChangeText={(lastName) => this.setState({lastName})}
             value={this.state.lastName}/>
 
-          <Text style={styles.text}>Email *</Text>
+          <Text style={styles.text}>{t('email')} *</Text>
 
           <TextInput
             style={styles.input}
@@ -84,26 +85,26 @@ class Signup extends Component{
             onChangeText={(email) => this.setState({email})}
             value={this.state.email}/>
 
-          <Text style={styles.text}>Password *</Text>
+          <Text style={styles.text}>{t('password')} *</Text>
 
           <TextInput
             style={styles.input}
-            placeholder='password'
+            placeholder={t('password')}
             secureTextEntry
             onChangeText={(password) => this.setState({password})}
             value={this.state.password}/>
 
-          <Text style={styles.text}>Confirm Password *</Text>
+          <Text style={styles.text}>{t('confirm_password')} *</Text>
 
           <TextInput
             style={styles.input}
-            placeholder='password'
+            placeholder={t('confirm_password')}
             secureTextEntry
             onChangeText={(confirmPassword) => this.setState({confirmPassword})}
             value={this.state.confirmPassword}/>
 
           <TouchableOpacity style={styles.touch} onPress={() => this.verifySignup(navigation)}>
-            <Text style={{padding: 5, fontSize: 30, color: 'beige'}}>SIGN UP</Text>
+            <Text style={{padding: 5, fontSize: 30, color: 'beige'}}>{t('sign_up')}</Text>
           </TouchableOpacity>
 
           <Text style={{color: 'red', fontSize: 20}}>{this.state.errorText}</Text>

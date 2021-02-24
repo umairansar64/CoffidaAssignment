@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, ActivityIndicator, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import StarRating from 'react-native-star-rating';
+import { t } from './../locales';
+
 
 class Home extends Component{
   constructor(props){
@@ -100,8 +102,8 @@ class Home extends Component{
                     <TouchableOpacity style={styles.touch} onPress={() => this.openLocation(navigation, item.location_id)}>
                       <Text style={styles.shopName}>{item.location_name}</Text>
                       <View style={{alignItems: 'flex-start'}}>
-                        <Text style={{fontSize: 20}}>Town: {item.location_town}</Text>
-                        <Text style={{fontSize: 20}}>Average Overall Rating: {item.avg_overall_rating}</Text>
+                        <Text style={{fontSize: 20}}>{t('town')}: {item.location_town}</Text>
+                        <Text style={{fontSize: 20}}>{t('average_overall_rating')}: {item.avg_overall_rating}</Text>
                         <StarRating
                           disabled={false}
                           halfStarEnabled={true}
@@ -112,7 +114,7 @@ class Home extends Component{
                         />
                       </View>
                       <View style={{alignItems: 'flex-start'}}>
-                      <Text style={styles.text}>"Tap to Learn more"</Text>
+                      <Text style={styles.text}>"{t('tap_to_learn_more')}"</Text>
                       </View>
                     </TouchableOpacity>
                 )}
