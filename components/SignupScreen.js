@@ -19,10 +19,10 @@ class Signup extends Component{
 
   verifySignup(navigation){
     if(this.state.firstName == '' || this.state.lastName == '' || this.state.email=='' || this.state.password==''){
-      this.setState({errorText: "None of the fields should be blank"});
+      this.setState({errorText: t('error_no_fields_blank')});
     }
     else if(this.state.password !== this.state.confirmPassword){
-      this.setState({errorText: "Passwords don't match"});
+      this.setState({errorText: t('passwords_dont_match')});
     }
     else{
       this.setState({errorText: ''});
@@ -51,7 +51,7 @@ class Signup extends Component{
     })
     .catch((error) => {
       console.log(error);
-    })
+    });
   }
 
   render(){

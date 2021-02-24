@@ -78,7 +78,7 @@ class EditReview extends Component{
     });
   }
 
-
+  // get the current review to edit from the list of user's reviews
   getThisReview = () => {
       for(var i=0; i<this.state.myReviews.reviews.length;i++){
         if(this.state.myReviews.reviews[i].review.review_id == this.state.reviewID){

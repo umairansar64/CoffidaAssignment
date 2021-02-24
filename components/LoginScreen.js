@@ -10,8 +10,8 @@ class Login extends Component{
     super(props);
 
     this.state = {
-      email: 'umair@mmu.ac.uk',
-      password: 'hello123',
+      email: '',
+      password: '',
       accessGranted: false,
       userID: '',
       token: '',
@@ -25,6 +25,8 @@ class Login extends Component{
 
   verifyLogin = async (navigation) => {
     await this.getData();
+
+    // if login successful
     if(this.state.accessGranted){
       await this.setState({
         accessGranted: !this.state.accessGranted,

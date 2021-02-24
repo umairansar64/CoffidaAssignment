@@ -77,10 +77,12 @@ class Account extends Component{
     });
   }
 
+  // Account detail changes are saved here
   saveEditedInfo(){
 
     let sendData = {};
 
+    // Atleast one field should have data when making changes
     let allBlank = true;
 
     if(this.state.editFirstName !== ''){

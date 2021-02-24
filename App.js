@@ -27,8 +27,6 @@ class App extends Component {
 
   render(){
 
-    getLanguage();
-
     return (
       <NavigationContainer independent={true}>
         <Stack.Navigator>

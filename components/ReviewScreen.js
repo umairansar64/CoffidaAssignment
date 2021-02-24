@@ -44,10 +44,11 @@ class Review extends Component{
   getData = async () => {
     await this.getReviewData();
     await this.getUserData();
-    await this.saveUserAndReviewData();
+    await this.saveReviewData();
+    await this.saveUserData();
   }
 
-  saveUserAndReviewData = async () => {
+  saveReviewData = async () => {
 
     for(var i=0; i<this.state.locations.length;i++){
 
@@ -70,7 +71,9 @@ class Review extends Component{
         }
       }
     }
+  }
 
+  saveUserData = async () => {
     for(var i=0; i<this.state.userInfo.liked_reviews.length;i++){
       if(this.state.userInfo.liked_reviews[i].review.review_id == this.state.reviewID){
         this.setState({

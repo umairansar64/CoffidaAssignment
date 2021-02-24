@@ -13,11 +13,11 @@ class Location extends Component{
       isLoading: true,
       token: '',
       gotID: false,
-      locationData: [],
+      locationData: '',
       locationID: '',
       isFavorite: false,
       userID: '',
-      userInfo: [],
+      userInfo: '',
       showAddReview: false,
       reviewButtonText: t('add_review'),
       overallRating: 0,
@@ -104,18 +104,22 @@ class Location extends Component{
   }
 
   isLocationFavorite = () => {
-    for(var i=0; i<this.state.userInfo.favourite_locations.length;i++){
+    const len = this.state.userInfo.favourite_locations.length;
+    for(var i=0; i<len;i++){
       if(this.state.userInfo.favourite_locations[i].location_id == this.state.locationID){
         this.setState({isFavorite: true});
       }
     }
   }
 
+  //update heart icon depending on if location is favorite or not
   getHeart() {
     if(this.state.isFavorite) return 'heart'
     return 'heart-o'
   }
 
+  //favorite Unfavorite Location
+  //function called when heart icon clicked
   favUnfavLocation = async () => {
 
       if(this.state.isFavorite){
@@ -162,6 +166,7 @@ class Location extends Component{
       }
   }
 
+  // Function called when Add Review button pressed
   addReviewPressed(){
     this.setState({showAddReview: !this.state.showAddReview})
     if(this.state.showAddReview){
@@ -171,6 +176,7 @@ class Location extends Component{
     }
   }
 
+  //check if any forbidden words entered in comment
   ValidateAndSaveReview(){
 
     let commentValid = true;

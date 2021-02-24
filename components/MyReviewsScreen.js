@@ -92,6 +92,7 @@ class MyReviews extends Component{
       }
   }
 
+  // open review on the Edit screen
   openReview = async (navigation, reviewId, locationId) => {
     await this.setState({
       locationID: locationId,
