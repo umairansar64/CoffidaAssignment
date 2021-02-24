@@ -56,5 +56,8 @@
   "account":"Account",
   "sign_up_successful":"Sign Up Successful",
   "details_updated":"Details Updated Successfully!",
-  "example_coffee_was_nice":"Coffee was nice"
+  "example_coffee_was_nice":"Coffee was nice",
+  "location":"Location",
+  "review":"Review",
+  "camera":"Camera"
 }

@@ -26,21 +26,24 @@ class App extends Component {
   }
 
   render(){
+
+    getLanguage();
+
     return (
       <NavigationContainer independent={true}>
         <Stack.Navigator>
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Signup" component={Signup} />
-          <Stack.Screen name="Account" component={Account}  options={{headerLeft: null}}/>
-          <Stack.Screen name="Home" component={Home}  options={{headerLeft: null}}/>
-          <Stack.Screen name="Location" component={Location}/>
-          <Stack.Screen name="Review" component={Review}/>
+          <Stack.Screen name="Login" component={Login} options={{title: t('log_in')}}/>
+          <Stack.Screen name="Signup" component={Signup} options={{title: t('sign_up')}}/>
+          <Stack.Screen name="Account" component={Account}  options={{headerLeft: null, title: t('account')}}/>
+          <Stack.Screen name="Home" component={Home}  options={{headerLeft: null, title: t('home')}}/>
+          <Stack.Screen name="Location" component={Location} options={{title: t('location')}}/>
+          <Stack.Screen name="Review" component={Review} options={{title: t('review')}}/>
           <Stack.Screen name="HomeNavigation" component={HomeNavigation}  options={{headerLeft: null, title: 'Coffida'}}/>
-          <Stack.Screen name="FavoriteLocations" component={FavoriteLocations}/>
-          <Stack.Screen name="LikedReviews" component={LikedReviews}/>
-          <Stack.Screen name="MyReviews" component={MyReviews}/>
-          <Stack.Screen name="EditReview" component={EditReview}/>
-          <Stack.Screen name="Camera" component={Camera}/>
+          <Stack.Screen name="FavoriteLocations" component={FavoriteLocations} options={{title: t('favourite_locations')}}/>
+          <Stack.Screen name="LikedReviews" component={LikedReviews} options={{title: t('liked_reviews')}}/>
+          <Stack.Screen name="MyReviews" component={MyReviews} options={{title: t('my_reviews')}}/>
+          <Stack.Screen name="EditReview" component={EditReview} options={{title: t('edit_review')}}/>
+          <Stack.Screen name="Camera" component={Camera} options={{title: t('camera')}}/>
         </Stack.Navigator>
       </NavigationContainer>
     );

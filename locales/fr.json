@@ -56,5 +56,8 @@
   "account":"Compte",
   "sign_up_successful":"Inscription réussie!",
   "details_updated":"Détails mis à jour avec succès!",
-  "example_coffee_was_nice":"Le café était bon"
+  "example_coffee_was_nice":"Le café était bon",
+  "location":"Lieu",
+  "review":"La revue",
+  "camera":"Caméra"
 }
