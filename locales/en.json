@@ -11,6 +11,7 @@
   "fill_the_details":"Fill the details you want to change!",
   "fill_details_correctly":"Please fill in the details correctly",
   "error_no_fields_blank":"None of the fields should be left blank",
+  "passwords_dont_match":"Passwords don't match",
   "error_incorrect_details":"Incorrect details entered",
   "town":"Town",
   "average_overall_rating":"Average Overall Rating",
